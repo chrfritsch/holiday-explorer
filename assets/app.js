@@ -563,7 +563,7 @@ async function loadHolidays() {
   const errorEl = document.getElementById("error-banner");
   loadingEl.classList.remove("hidden");
   try {
-    const res = await fetch("/data/holidays.json");
+    const res = await fetch("data/holidays.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     state.holidays = await res.json();
   } catch (e) {
