@@ -1,0 +1,101 @@
+---
+title: European Holiday Explorer
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>European Holiday Explorer</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header id="app-header">
+    <div class="header-brand">
+      <div class="header-icon">🗓</div>
+      <div>
+        <div class="app-title">European Holiday Explorer</div>
+        <div class="app-subtitle">School &amp; public holidays across Europe</div>
+      </div>
+    </div>
+  </header>
+
+  <nav id="controls">
+    <div class="control-group">
+      <span class="control-label">Year</span>
+      <div class="year-nav">
+        <button class="year-btn" id="year-prev" aria-label="Previous year">&#8249;</button>
+        <span id="year-display"></span>
+        <button class="year-btn" id="year-next" aria-label="Next year">&#8250;</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <span class="control-label">Show</span>
+      <div class="type-toggle">
+        <button class="type-btn active" data-type="school">School</button>
+        <button class="type-btn" data-type="public">Public</button>
+        <button class="type-btn" data-type="both">Both</button>
+      </div>
+    </div>
+    <label class="nationwide-check control-group">
+      <input type="checkbox" id="nationwide-only">
+      <span>Nationwide only</span>
+    </label>
+    <div class="control-group filter-group">
+      <button class="filter-btn" id="filter-btn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="filter-btn-icon">🌍</span>
+        <span id="filter-btn-label">All countries</span>
+        <span class="filter-btn-arrow">▾</span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="chip-bar" class="hidden">
+    <div id="chips-container"></div>
+    <button id="chip-clear-all" class="chip-clear-all">✕ Clear all</button>
+  </div>
+
+  <div id="filter-dropdown" class="filter-dropdown hidden" role="listbox">
+    <div class="filter-dropdown-header">
+      <input type="search" id="filter-search" class="filter-search-input" placeholder="Search countries and regions…" autocomplete="off">
+    </div>
+    <div id="filter-list" class="filter-list"></div>
+  </div>
+
+  <div id="legend">
+    <div class="legend-item"><div class="legend-swatch legend-swatch--school"></div> School holidays</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch--public"></div> Public holidays</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch--both"></div> Overlap</div>
+    <div class="legend-item"><div class="legend-swatch legend-swatch--regional"></div> Regional only</div>
+    <div class="legend-item"><div class="legend-today"></div> Today</div>
+  </div>
+
+  <div id="status-bar">
+    <div id="loading">
+      <div class="spinner"></div>
+      <span id="loading-text">Loading holiday data…</span>
+    </div>
+    <div id="error-banner" class="hidden"></div>
+  </div>
+
+  <div id="timeline-container">
+    <div id="month-header"></div>
+    <div id="rows-container"></div>
+  </div>
+
+  <div id="tooltip"></div>
+
+  <footer id="app-footer">
+    Data from <a href="https://www.openholidaysapi.org/" target="_blank" rel="noopener">OpenHolidays API</a> · Open Data · Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener">Eleventy</a>
+  </footer>
+
+  <script>
+    window.COUNTRIES = {{ countries | json | safe }};
+    window.SUBDIVISIONS = {{ subdivisions | json | safe }};
+    window.BUILD_YEAR = {{ buildYear }};
+  </script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
